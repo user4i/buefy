@@ -83,24 +83,32 @@ export default {
         fixedTop: {
             handler(isSet) {
                 this.checkIfFixedPropertiesAreColliding()
-                const className = this.spaced
-                    ? BODY_SPACED_FIXED_TOP_CLASS : BODY_FIXED_TOP_CLASS
                 if (isSet) {
-                    return this.setBodyClass(className)
+                    // TODO Apply only one of the classes once PR is merged in Bulma:
+                    // https://github.com/jgthms/bulma/pull/2737
+                    this.setBodyClass(BODY_FIXED_TOP_CLASS)
+                    this.spaced &&
+                        this.setBodyClass(BODY_SPACED_FIXED_TOP_CLASS)
+                } else {
+                    this.removeBodyClass(BODY_FIXED_TOP_CLASS)
+                    this.removeBodyClass(BODY_SPACED_FIXED_TOP_CLASS)
                 }
-                this.removeBodyClass(className)
             },
             immediate: true
         },
         fixedBottom: {
             handler(isSet) {
                 this.checkIfFixedPropertiesAreColliding()
-                const className = this.spaced
-                    ? BODY_SPACED_FIXED_BOTTOM_CLASS : BODY_FIXED_BOTTOM_CLASS
                 if (isSet) {
-                    return this.setBodyClass(className)
+                    // TODO Apply only one of the classes once PR is merged in Bulma:
+                    // https://github.com/jgthms/bulma/pull/2737
+                    this.setBodyClass(BODY_FIXED_BOTTOM_CLASS)
+                    this.spaced &&
+                        this.setBodyClass(BODY_SPACED_FIXED_BOTTOM_CLASS)
+                } else {
+                    this.removeBodyClass(BODY_FIXED_BOTTOM_CLASS)
+                    this.removeBodyClass(BODY_SPACED_FIXED_BOTTOM_CLASS)
                 }
-                this.removeBodyClass(className)
             },
             immediate: true
         }
@@ -132,7 +140,9 @@ export default {
         checkIfFixedPropertiesAreColliding() {
             const areColliding = this.fixedTop && this.fixedBottom
             if (areColliding) {
-                throw new Error('You should choose if the BNavbar is fixed bottom or fixed top, but not both')
+                throw new Error(
+                    'You should choose if the BNavbar is fixed bottom or fixed top, but not both'
+                )
             }
         },
         genNavbar(createElement) {
@@ -146,32 +156,44 @@ export default {
             }
 
             // It wraps the slots into a div with the provided wrapperClass prop
-            const navWrapper = createElement('div', {
-                class: this.wrapperClass
-            }, navBarSlots)
+            const navWrapper = createElement(
+                'div',
+                {
+                    class: this.wrapperClass
+                },
+                navBarSlots
+            )
 
             return this.genNavbarSlots(createElement, [navWrapper])
         },
         genNavbarSlots(createElement, slots) {
-            return createElement('nav', {
-                staticClass: 'navbar',
-                class: this.computedClasses,
-                attrs: {
-                    role: 'navigation',
-                    'aria-label': 'main navigation'
+            return createElement(
+                'nav',
+                {
+                    staticClass: 'navbar',
+                    class: this.computedClasses,
+                    attrs: {
+                        role: 'navigation',
+                        'aria-label': 'main navigation'
+                    },
+                    directives: [
+                        {
+                            name: 'click-outside',
+                            value: this.closeMenu
+                        }
+                    ]
                 },
-                directives: [
-                    {
-                        name: 'click-outside',
-                        value: this.closeMenu
-                    }
-                ]
-            }, slots)
+                slots
+            )
         },
         genNavbarBrandNode(createElement) {
-            return createElement('div', {
-                class: 'navbar-brand'
-            }, [this.$slots.brand, this.genBurgerNode(createElement)])
+            return createElement(
+                'div',
+                {
+                    class: 'navbar-brand'
+                },
+                [this.$slots.brand, this.genBurgerNode(createElement)]
+            )
         },
         genBurgerNode(createElement) {
             if (this.mobileBurger) {
@@ -194,27 +216,40 @@ export default {
             }
         },
         genNavbarSlotsNode(createElement) {
-            return createElement('div', {
-                staticClass: 'navbar-menu',
-                class: { 'is-active': this.isOpened }
-            }, [this.genMenuPosition(createElement, 'start'), this.genMenuPosition(createElement, 'end')])
+            return createElement(
+                'div',
+                {
+                    staticClass: 'navbar-menu',
+                    class: { 'is-active': this.isOpened }
+                },
+                [
+                    this.genMenuPosition(createElement, 'start'),
+                    this.genMenuPosition(createElement, 'end')
+                ]
+            )
         },
         genMenuPosition(createElement, positionName) {
-            return createElement('div', {
-                staticClass: `navbar-${positionName}`
-            }, this.$slots[positionName])
+            return createElement(
+                'div',
+                {
+                    staticClass: `navbar-${positionName}`
+                },
+                this.$slots[positionName]
+            )
         }
     },
     beforeDestroy() {
-        let className = ''
         if (this.fixedTop) {
-            className = this.spaced
-                ? BODY_SPACED_FIXED_TOP_CLASS : BODY_FIXED_TOP_CLASS
+            const className = this.spaced
+                ? BODY_SPACED_FIXED_TOP_CLASS
+                : BODY_FIXED_TOP_CLASS
+            this.removeBodyClass(className)
         } else if (this.fixedBottom) {
-            className = this.spaced
-                ? BODY_SPACED_FIXED_BOTTOM_CLASS : BODY_FIXED_BOTTOM_CLASS
+            const className = this.spaced
+                ? BODY_SPACED_FIXED_BOTTOM_CLASS
+                : BODY_FIXED_BOTTOM_CLASS
+            this.removeBodyClass(className)
         }
-        this.removeBodyClass(className)
     },
     render(createElement, fn) {
         return this.genNavbar(createElement)

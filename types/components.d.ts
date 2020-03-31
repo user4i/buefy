@@ -92,6 +92,11 @@ export declare type DialogConfig = {
     * Improve accessiblity when enabled.
     */
    ariaModal?: boolean;
+
+   /**
+    * CSS classes to be applied on modal
+    */
+   customClass?: string;
 }
 
 type PromptDialogConfig = DialogConfig & {
@@ -132,6 +137,11 @@ declare type ModalConfig = {
     canCancel?: boolean | Array<any>;
     onCancel?: () => any;
     scroll?: 'clip' | 'keep';
+
+    /**
+     * Display modal as full screen
+     */
+    fullScreen?: boolean;
 
     /**
      * Trap focus inside the dialog.

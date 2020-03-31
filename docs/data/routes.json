@@ -164,7 +164,8 @@
             "/",
             "documentation",
             "documentation/tabs"
-        ]
+        ],
+        "isUpdated": true
     },
     "documentation/tag": {
         "title": "Tag",
@@ -200,8 +201,7 @@
             "/",
             "documentation",
             "documentation/snackbar"
-        ],
-        "isUpdated": true
+        ]
     },
     "documentation/notification": {
         "title": "Notification",
@@ -213,8 +213,7 @@
             "/",
             "documentation",
             "documentation/notification"
-        ],
-        "isUpdated": true
+        ]
     },
     "documentation/message": {
         "title": "Message",
@@ -238,8 +237,7 @@
             "/",
             "documentation",
             "documentation/loading"
-        ],
-        "isUpdated": true
+        ]
     },
     "documentation/field": {
         "title": "Field",
@@ -324,7 +322,8 @@
             "/",
             "documentation",
             "documentation/switch"
-        ]
+        ],
+        "isUpdated": true
     },
     "documentation/datepicker": {
         "title": "Datepicker",
@@ -362,7 +361,8 @@
             "/",
             "documentation",
             "documentation/clockpicker"
-        ]
+        ],
+        "isUpdated": true
     },
     "documentation/datetimepicker": {
         "title": "Datetimepicker",
@@ -374,7 +374,8 @@
             "/",
             "documentation",
             "documentation/datetimepicker"
-        ]
+        ],
+        "isUpdated": true
     },
     "documentation/taginput": {
         "title": "Taginput",
@@ -411,8 +412,7 @@
             "/",
             "documentation",
             "documentation/table"
-        ],
-        "isUpdated": true
+        ]
     },
     "documentation/pagination": {
         "title": "Pagination",
@@ -508,8 +508,7 @@
             "/",
             "documentation",
             "documentation/carousel"
-        ],
-        "isUpdated": true
+        ]
     },
     "documentation/rate": {
         "title": "Rate",
@@ -522,6 +521,19 @@
             "documentation",
             "documentation/rate"
         ]
+    },
+    "documentation/sidebar": {
+        "title": "Sidebar",
+        "subtitle": "A sidebar to use as left/right overlay or static",
+        "path": "/documentation/sidebar",
+        "githubPath": "pages/components/sidebar/Sidebar.vue",
+        "menu": "documentation",
+        "breadcrumb": [
+            "/",
+            "documentation",
+            "documentation/sidebar"
+        ],
+        "isNew": "true"
     },
     "extensions": {
         "title": "Extensions",
@@ -568,7 +580,8 @@
             "/",
             "extensions",
             "extensions/veevalidate"
-        ]
+        ],
+        "isUpdated": true
     },
     "expo": {
         "title": "Expo",
